@@ -137,7 +137,7 @@ In production, the bundle size of r3e is [2.9 kB](https://bundlephobia.com/resul
 
 ### Overriding Production Removal
 
-To force usage in production, pass a `ENABLE_PROD_EDITOR=true`.
+To force usage in production, pass a `ENABLE_PROD_EDITOR=true` environment variable.
 
 ## Contributing
 
