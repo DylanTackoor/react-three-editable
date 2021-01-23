@@ -163,6 +163,7 @@ export type EditorStore = {
   // this will come in handy when we start supporting multiple canvases
   canvasName: string;
   initialState: EditableState | null;
+  isFullscreen: boolean;
   selected: string | null;
   transformControlsMode: TransformControlsMode;
   transformControlsSpace: TransformControlsSpace;
@@ -202,6 +203,7 @@ export type EditorStore = {
   setUseHdrAsBackground: (use: boolean) => void;
   setShowGrid: (show: boolean) => void;
   setShowAxes: (show: boolean) => void;
+  setFullscreen: (show: boolean) => void;
   setEditorOpen: (open: boolean) => void;
   createSnapshot: () => void;
   setSnapshotProxyObject: (
@@ -242,6 +244,7 @@ const config: StateCreator<EditorStore> = (set, get) => {
     editables: {},
     canvasName: 'default',
     initialState: null,
+    isFullscreen: false,
     selected: null,
     transformControlsMode: 'translate',
     transformControlsSpace: 'world',
@@ -301,7 +304,7 @@ const config: StateCreator<EditorStore> = (set, get) => {
             console.error(`Warning: There is a mismatch between the serialized type of ${uniqueName} and the one set when adding it to the scene.
   Serialized: ${state.editables[uniqueName].type}.
   Current: ${type}.
-  
+
   This might have happened either because you changed the type of an object, in which case a re-export will solve the issue, or because you re-used the uniqueName for an object of a different type, which is an error.`);
           }
           if (
@@ -460,6 +463,10 @@ const config: StateCreator<EditorStore> = (set, get) => {
       set({
         editables: newEditables,
       });
+    },
+    setFullscreen: (show) => {
+      alert('TODO: toggle fullscreen');
+      set({ isFullscreen: show });
     },
   };
 };

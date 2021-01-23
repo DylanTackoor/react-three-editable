@@ -25,15 +25,15 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "NODE_ENV=production tsdx build --format cjs",
+    "build": "npx cross-env NODE_ENV=production tsdx build --format cjs",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
-    "prepare": "NODE_ENV=production tsdx build  --format cjs",
+    "prepare": "npx cross-env NODE_ENV=production tsdx build  --format cjs",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -s ./stories/public -p 6006",
     "build-storybook": "build-storybook",
-    "np": "NODE_ENV=production np --any-branch"
+    "np": "npx cross-env NODE_ENV=production np --any-branch"
   },
   "peerDependencies": {
     "react": ">=16",

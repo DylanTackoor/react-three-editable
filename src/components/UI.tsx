@@ -5,6 +5,7 @@ import shallow from 'zustand/shallow';
 import ReferenceWindow from './ReferenceWindow';
 import { saveAs } from 'file-saver';
 import { Vector3 } from 'three';
+import { RiFullscreenLine } from '@react-icons/all-files/ri/RiFullscreenLine';
 import { RiFocus3Line } from '@react-icons/all-files/ri/RiFocus3Line';
 import { GiPocketBow } from '@react-icons/all-files/gi/GiPocketBow';
 import { AiFillEye } from '@react-icons/all-files/ai/AiFillEye';
@@ -25,6 +26,7 @@ const UI: VFC = () => {
     setViewportShading,
     setEditorOpen,
     setEditableTransform,
+    setFullscreen,
   ] = useEditorStore(
     (state) => [
       state.transformControlsMode,
@@ -35,6 +37,7 @@ const UI: VFC = () => {
       state.setViewportShading,
       state.setEditorOpen,
       state.setEditableTransform,
+      state.setFullscreen,
     ],
     shallow
   );
@@ -130,6 +133,15 @@ const UI: VFC = () => {
                 <SettingsButton icon={<AiFillEye />} label="Viewport settings">
                   <ViewportSettings />
                 </SettingsButton>
+              </div>
+              <div className="pointer-events-auto">
+                <IconButton
+                  label="FullScreen Toggle"
+                  icon={<RiFullscreenLine />}
+                  onClick={() => {
+                    setFullscreen();
+                  }}
+                />
               </div>
             </div>
             <div className="absolute right-0 top-0 -z-10">
