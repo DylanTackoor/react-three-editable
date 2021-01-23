@@ -26,7 +26,7 @@ const UI: VFC = () => {
     setViewportShading,
     setEditorOpen,
     setEditableTransform,
-    setFullscreen,
+    toggleFullscreen,
   ] = useEditorStore(
     (state) => [
       state.transformControlsMode,
@@ -37,7 +37,7 @@ const UI: VFC = () => {
       state.setViewportShading,
       state.setEditorOpen,
       state.setEditableTransform,
-      state.setFullscreen,
+      state.toggleFullscreen,
     ],
     shallow
   );
@@ -138,9 +138,7 @@ const UI: VFC = () => {
                 <IconButton
                   label="FullScreen Toggle"
                   icon={<RiFullscreenLine />}
-                  onClick={() => {
-                    setFullscreen();
-                  }}
+                  onClick={() => toggleFullscreen()}
                 />
               </div>
             </div>

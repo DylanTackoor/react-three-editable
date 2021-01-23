@@ -10,6 +10,24 @@ import { MutableRefObject } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import deepEqual from 'fast-deep-equal';
 
+declare global {
+  interface Document {
+    cancelFullScreen?: () => Promise<void>;
+    mozCancelFullScreen?: () => Promise<void>;
+    msExitFullscreen?: () => Promise<void>;
+    webkitExitFullscreen?: () => Promise<void>;
+    mozFullScreenElement?: Element;
+    msFullscreenElement?: Element;
+    webkitFullscreenElement?: Element;
+  }
+
+  interface HTMLElement {
+    msRequestFullscreen?: () => Promise<void>;
+    mozRequestFullscreen?: () => Promise<void>;
+    webkitRequestFullscreen?: () => Promise<void>;
+  }
+}
+
 export type EditableType =
   | 'group'
   | 'mesh'
@@ -203,7 +221,7 @@ export type EditorStore = {
   setUseHdrAsBackground: (use: boolean) => void;
   setShowGrid: (show: boolean) => void;
   setShowAxes: (show: boolean) => void;
-  setFullscreen: (show: boolean) => void;
+  toggleFullscreen: () => void;
   setEditorOpen: (open: boolean) => void;
   createSnapshot: () => void;
   setSnapshotProxyObject: (
@@ -244,6 +262,7 @@ const config: StateCreator<EditorStore> = (set, get) => {
     editables: {},
     canvasName: 'default',
     initialState: null,
+    // TODO: replace with getFullscreenStatus or something shorter
     isFullscreen: false,
     selected: null,
     transformControlsMode: 'translate',
@@ -464,9 +483,15 @@ const config: StateCreator<EditorStore> = (set, get) => {
         editables: newEditables,
       });
     },
-    setFullscreen: (show) => {
-      alert('TODO: toggle fullscreen');
-      set({ isFullscreen: show });
+    toggleFullscreen: () => {
+      // FIXME: this check isn't working
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else {
+        if (document.cancelFullScreen) {
+          document.cancelFullScreen();
+        }
+      }
     },
   };
 };
